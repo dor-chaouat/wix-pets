@@ -1,0 +1,56 @@
+.root {
+  height: 100%;
+  display: grid;
+  font-size: 16px;
+  font-family: Avenir;
+}
+
+.frame {
+  border: 2px solid;
+  border-radius: 18px;
+}
+
+.header {
+  font-family: Gloock;
+  font-size: 24px;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.hero {
+  display: flex;
+  border-block: 2px solid;
+}
+
+.image {
+  border-left: 2px solid;
+  width: 75%;
+  object-fit: cover;
+}
+
+.list {
+  padding: 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.subtitle {
+  font-family: Gloock;
+  margin-bottom: 8px;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #ddda 30%, #f2f2f2aa, #ddda 70%) right / 300% 100%;
+  animation: skeleton-loading 1.5s linear infinite;
+  border: 2px solid;
+  border-radius: 18px;
+}
+
+@keyframes skeleton-loading {
+  to {
+    background-position: left;
+  }
+}

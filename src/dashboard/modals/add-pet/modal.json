@@ -1,0 +1,7 @@
+{
+  "$schema": "https://dev.wix.com/wix-cli/schemas/dashboard-modal.json",
+  "id": "44ac8a13-0bf7-4877-8d83-ef182188913f",
+  "title": "Add Pet",
+  "width": 550,
+  "height": 600
+}

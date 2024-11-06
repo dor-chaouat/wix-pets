@@ -1,0 +1,5 @@
+{
+  "$schema": "https://dev.wix.com/wix-cli/schemas/wix-config.json",
+  "appId": "29045eb6-1f52-4d70-89f8-473687ba589e",
+  "projectId": "wix-pets"
+}
