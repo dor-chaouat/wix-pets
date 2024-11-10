@@ -2797,6 +2797,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@wix/site-window@npm:^1.20.0":
+  version: 1.20.0
+  resolution: "@wix/site-window@npm:1.20.0::__archiveUrl=https%3A%2F%2Fnpm.dev.wixpress.com%2Fapi%2Fnpm%2Fnpm-repos%2F%40wix%2Fsite-window%2F-%2Fsite-window-1.20.0.tgz"
+  dependencies:
+    "@babel/runtime": "npm:^7.0.0"
+    "@wix/sdk-runtime": "npm:^0.3.11"
+  checksum: 10c0/58fb2ea08a128f8c905a13d3ef83d93bc0d110de3565725ea073c54c3fa0da7cd622344225779a906b6e3739906857a3d8b26b8cc430bb9efd594af76e6e64e2
+  languageName: node
+  linkType: hard
+
 "@wix/unidriver-core@npm:^1.1.8":
   version: 1.1.8
   resolution: "@wix/unidriver-core@npm:1.1.8"
@@ -6891,6 +6901,7 @@ __metadata:
     "@wix/site-pay": "npm:^1.19.0"
     "@wix/site-site": "npm:^1.15.0"
     "@wix/site-stores": "npm:^1.13.0"
+    "@wix/site-window": "npm:^1.20.0"
     "@wix/wix-ui-icons-common": "npm:^3.0.0"
     react: "npm:16.14.0"
     react-dom: "npm:16.14.0"

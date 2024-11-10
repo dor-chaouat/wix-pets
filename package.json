@@ -17,6 +17,7 @@
     "@wix/site-pay": "^1.19.0",
     "@wix/site-site": "^1.15.0",
     "@wix/site-stores": "^1.13.0",
+    "@wix/site-window": "^1.20.0",
     "@wix/wix-ui-icons-common": "^3.0.0",
     "react-query": "^3.39.3",
     "react-to-webcomponent": "^2.0.0"
