@@ -1,106 +1,100 @@
-import React, { useEffect, useState, type FC } from 'react';
+import React, { type FC } from 'react';
 import { httpClient } from '@wix/essentials';
 import { dashboard } from '@wix/dashboard';
-import { Add, Premium } from '@wix/wix-ui-icons-common'
+import { Premium } from '@wix/wix-ui-icons-common'
 import {
-  Box,
-  Button,
-  Loader,
-  Page,
+  CustomColumns,
+  PrimaryActions,
   Table,
-  WixDesignSystemProvider,
-} from '@wix/design-system';
+  useOptimisticActions,
+  useTableCollection,
+} from "@wix/patterns";
+import { CollectionPage } from "@wix/patterns/page";
+import { WixPatternsProvider } from "@wix/patterns/provider";
+import { WixDesignSystemProvider } from '@wix/design-system';
 import '@wix/design-system/styles.global.css';
 import type { Pet } from '../../types';
 
-const Index: FC = () => {
-  const [pets, setPets] = useState<Pet[]>();
+const PetsTable: FC = () => {
+  const tableState = useTableCollection<Pet>({
+    queryName: 'pets-table',
+    itemKey: (item) => item.name,
+    fetchData: async ({ search }) => {
+      const requestUrl = new URL(`${import.meta.env.BASE_API_URL}/pets`);
+      search && requestUrl.searchParams.append('search', search);
 
-  useEffect(() => {
-    const fetchPets = async () => {
-      const petsCollection = await httpClient.fetchWithAuth(`${import.meta.env.BASE_API_URL}/pets`);
-      const petsData = await petsCollection.json() as Array<{ data: Pet }>;
+      const petsCollection = await httpClient.fetchWithAuth(requestUrl);
+      const petsData = await petsCollection.json() as Array<Pet>;
 
-      setPets(petsData.map(pet => pet.data));
-    };
+      return {
+        items: petsData,
+      }
+    },
+  });
 
-    fetchPets();
-  }, []);
-
+  const optimisticActions = useOptimisticActions(tableState.collection)
   const savePet = async (pet: Pet) => {
-    await httpClient.fetchWithAuth(`${import.meta.env.BASE_API_URL}/pets`, {
-      method: 'POST',
-      body: JSON.stringify(pet)
-    });
+    optimisticActions.createOne(pet, {
+      successToast: `${pet.name} was added`,
+      submit: async () => {
+        await httpClient.fetchWithAuth(`${import.meta.env.BASE_API_URL}/pets`, {
+          method: 'POST',
+          body: JSON.stringify(pet)
+        });
 
-    dashboard.showToast({
-      type: 'success',
-      message: 'New pet was added'
-    });
-
-    setPets(pets ? [...pets, pet] : [pet])
+        return [pet];
+      },
+    })
   };
 
   return (
-    <WixDesignSystemProvider features={{ newColorsBranding: true }}>
-      {!pets ? (
-        <Box
-          height='100vh'
-          align='center'
-          verticalAlign='middle'
-        >
-          <Loader />
-        </Box>
-      ) : (
-        <Page height='100vh'>
-          <Page.Header
-            title="Pets Manager"
-            subtitle="Add pets to your site."
-            actionsBar={
-              <Button
-                onClick={() => { dashboard.openModal('44ac8a13-0bf7-4877-8d83-ef182188913f', { savePet }) }}
-                prefixIcon={<Add />}
-              >
-                Add Pet
-              </Button>
-            }
+    <CollectionPage>
+      <CollectionPage.Header
+        title={{ text: 'Pets Manager' }}
+        subtitle={{
+          text: 'Add pets to your site.'
+        }}
+        primaryAction={
+          <PrimaryActions
+            label="Add a Pet"
+            onClick={() => dashboard.openModal('44ac8a13-0bf7-4877-8d83-ef182188913f', { savePet })}
           />
-          <Page.Content>
-            <Table<Pet>
-              columns={[
-                {
-                  title: 'Name',
-                  render: (pet) => pet.name,
-                },
-                {
-                  title: 'Age',
-                  render: (pet) => pet.age,
-                },
-                {
-                  title: 'Owner',
-                  render: (pet) => pet.owner,
-                },
-                {
-                  title: 'Featured',
-                  render: (pet) => pet.featured ? <Premium /> : null,
-                }
-              ]}
-              data={pets}
-            >
-              {pets.length ? (
-                <Table.Content />
-              ) : (
-                <Table.EmptyState
-                  title="Add your first member"
-                  subtitle="Once you add members, you'll be able to see and manage them here."
-                />
-              )}
-            </Table>
-          </Page.Content>
-        </Page>
-      )}
-    </WixDesignSystemProvider>
+        } />
+      <CollectionPage.Content>
+        <Table
+          customColumns={<CustomColumns />}
+          state={tableState}
+          columns={[
+            {
+              title: 'Name',
+              id: 'name',
+              render: (pet) => pet.name,
+            },
+            {
+              title: 'Age',
+              id: 'age',
+              render: (pet) => pet.age,
+            },
+            {
+              title: 'Featured',
+              id: 'featured',
+              render: (pet) => pet.featured ? <Premium /> : null,
+            }
+          ]}
+        />
+      </CollectionPage.Content>
+    </CollectionPage>
   );
 };
+
+const Index: FC = () => {
+  return (
+    <WixDesignSystemProvider features={{ newColorsBranding: true }}>
+      <WixPatternsProvider>
+        <PetsTable />
+      </WixPatternsProvider>
+    </WixDesignSystemProvider>
+  )
+}
 
 export default Index;

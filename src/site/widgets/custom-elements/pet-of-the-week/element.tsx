@@ -2,8 +2,10 @@ import React, { useEffect, useState, type FC } from 'react';
 import ReactDOM from 'react-dom';
 import reactToWebComponent from 'react-to-webcomponent';
 import { httpClient } from '@wix/essentials';
-import type { Pet } from '../../../../types';
+import { window as wixWindow } from '@wix/site-window';
 import styles from './element.module.css';
+import DefaultImage from './persik.jpeg';
+import type { Pet } from '../../../../types';
 
 type Props = {
   title: string;
@@ -11,16 +13,34 @@ type Props = {
   maincolor: string;
 };
 
+const defaultPet: Pet = {
+  name: "Buddy",
+  age: 3,
+  // owner: "Alice Johnson",
+  // gender: "Male",
+  // type: "Dog",
+  // activity: "Fetching",
+  description: "A friendly and energetic dog who loves to play fetch and explore the outdoors.",
+  image: DefaultImage,
+  featured: false
+};
+
 const CustomElement: FC<Props> = (props) => {
   const [pet, setPet] = useState<Pet | undefined>();
 
   useEffect(() => {
     const fetchPetOfTheWeek = async () => {
-      const petsCollection = await httpClient.fetchWithAuth(`${import.meta.env.BASE_API_URL}/pets`);
-      const pets: Array<{ data: Pet }> = await petsCollection.json();
-      const petOfTheWeek = pets.find(el => el.data.featured);
+      const viewMode = await wixWindow.viewMode();
 
-      setPet(petOfTheWeek?.data);
+      if (viewMode === 'Editor') {
+        setPet(defaultPet);
+      } else {
+        const petsCollection = await httpClient.fetchWithAuth(`${import.meta.env.BASE_API_URL}/pets`);
+        const pets: Pet[] = await petsCollection.json();
+        const petOfTheWeek = pets.find(el => el.featured);
+
+        setPet(petOfTheWeek);
+      };
     };
 
     fetchPetOfTheWeek();
@@ -48,7 +68,7 @@ const CustomElement: FC<Props> = (props) => {
                 <strong>Age</strong>
                 <p>{`${pet.age} Years Old`}</p>
               </div>
-              <div>
+              {/* <div>
                 <strong>Owner</strong>
                 <p>{pet.owner}</p>
               </div>
@@ -63,7 +83,7 @@ const CustomElement: FC<Props> = (props) => {
               <div>
                 <strong>Activity</strong>
                 <p>{pet.activity}</p>
-              </div>
+              </div> */}
             </div>
             <img
               src={pet.image}
