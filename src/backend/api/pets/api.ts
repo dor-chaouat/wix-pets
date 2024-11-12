@@ -9,6 +9,7 @@ const pets = [
     description: "A playful Labrador who loves to be around people.",
     image: "https://www.dogsforgood.org/wp-content/uploads/2020/06/Dogs-For-Good-October-22-2019-308.jpg",
     featured: true,
+    id: 1,
   },
   {
     name: "Milo",
@@ -20,6 +21,7 @@ const pets = [
     description: "Curious and mischievous tabby cat with a lot of energy.",
     image: "https://example.com/images/milo.jpg",
     featured: false,
+    id: 2,
   },
   {
     name: "Luna",
@@ -31,6 +33,7 @@ const pets = [
     description: "A fluffy rabbit with a gentle nature.",
     image: "https://example.com/images/luna.jpg",
     featured: true,
+    id: 3,
   },
   {
     name: "Max",
@@ -42,6 +45,7 @@ const pets = [
     description: "A colorful parrot who loves to mimic voices.",
     image: "https://example.com/images/max.jpg",
     featured: false,
+    id: 4,
   },
   {
     name: "Chloe",
@@ -53,6 +57,7 @@ const pets = [
     description: "A loyal German Shepherd who enjoys outdoor activities.",
     image: "https://example.com/images/chloe.jpg",
     featured: true,
+    id: 5,
   },
   {
     name: "Oliver",
@@ -64,6 +69,7 @@ const pets = [
     description: "A relaxed Siamese cat who loves warm places.",
     image: "https://example.com/images/oliver.jpg",
     featured: false,
+    id: 6,
   },
   {
     name: "Charlie",
@@ -75,6 +81,7 @@ const pets = [
     description: "A small, energetic hamster who loves to explore.",
     image: "https://example.com/images/charlie.jpg",
     featured: true,
+    id: 7,
   },
   {
     name: "Lucy",
@@ -86,6 +93,7 @@ const pets = [
     description: "A gentle Golden Retriever, great with kids.",
     image: "https://example.com/images/lucy.jpg",
     featured: false,
+    id: 8,
   },
   {
     name: "Buddy",
@@ -97,6 +105,7 @@ const pets = [
     description: "An active Beagle who loves outdoor adventures.",
     image: "https://example.com/images/buddy.jpg",
     featured: true,
+    id: 9,
   },
   {
     name: "Daisy",
@@ -108,6 +117,7 @@ const pets = [
     description: "A small canary known for her beautiful songs.",
     image: "https://example.com/images/daisy.jpg",
     featured: false,
+    id: 10,
   },
   {
     name: "Oscar",
@@ -119,6 +129,7 @@ const pets = [
     description: "A colorful betta fish with a calm personality.",
     image: "https://example.com/images/oscar.jpg",
     featured: true,
+    id: 11,
   },
   {
     name: "Molly",
@@ -130,6 +141,7 @@ const pets = [
     description: "A quiet and observant Persian cat.",
     image: "https://example.com/images/molly.jpg",
     featured: false,
+    id: 12,
   }
 ];
 

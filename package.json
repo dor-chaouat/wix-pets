@@ -8,7 +8,7 @@
     "@wix/design-system": "1.136.0",
     "@wix/editor": "^1.308.0",
     "@wix/essentials": "^0.1.5",
-    "@wix/patterns": "https://cdn.dev.wixpress.com/@wix/patterns/38b133442765bfbb197a62a6ffb3d6ef36d4fd3a5aa2afa84fbd104d.tar.gz",
+    "@wix/patterns": "^1.101.0",
     "@wix/site-window": "^1.20.0",
     "@wix/wix-ui-icons-common": "^3.0.0",
     "react-to-webcomponent": "^2.0.0"

@@ -4,4 +4,5 @@ export type Pet = {
   description: string,
   image: string;
   featured: boolean;
+  id: string;
 };
