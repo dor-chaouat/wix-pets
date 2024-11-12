@@ -1,104 +1,55 @@
-import React, { useEffect, useState, type FC } from 'react';
-import { httpClient } from '@wix/essentials';
+import React, { type FC } from 'react';
 import { dashboard } from '@wix/dashboard';
-import { Add, Premium } from '@wix/wix-ui-icons-common'
 import {
-  Box,
   Button,
-  Loader,
+  EmptyState,
+  Image,
   Page,
-  Table,
+  TextButton,
   WixDesignSystemProvider,
 } from '@wix/design-system';
 import '@wix/design-system/styles.global.css';
-import type { Pet } from '../../types';
+import * as Icons from '@wix/wix-ui-icons-common';
+import wixLogo from './wix_logo.svg';
 
 const Index: FC = () => {
-  const [pets, setPets] = useState<Pet[]>();
-
-  useEffect(() => {
-    const fetchPets = async () => {
-      const petsCollection = await httpClient.fetchWithAuth(`${import.meta.env.BASE_API_URL}/pets`);
-      const petsData = await petsCollection.json() as Array<{ data: Pet }>;
-
-      setPets(petsData.map(pet => pet.data));
-    };
-
-    fetchPets();
-  }, []);
-
-  const savePet = async (pet: Pet) => {
-    await httpClient.fetchWithAuth(`${import.meta.env.BASE_API_URL}/pets`, {
-      method: 'POST',
-      body: JSON.stringify(pet)
-    });
-
-    dashboard.showToast({
-      type: 'success',
-      message: 'New pet was added'
-    });
-
-    setPets(pets ? [...pets, pet] : [pet])
-  };
-
   return (
     <WixDesignSystemProvider features={{ newColorsBranding: true }}>
-      {!pets ? (
-        <Box
-          height='100vh'
-          align='center'
-          verticalAlign='middle'
-        >
-          <Loader />
-        </Box>
-      ) : (
-        <Page height='100vh'>
-          <Page.Header
-            title="Pets Manager"
-            subtitle="Add pets to your site."
-            actionsBar={
-              <Button
-                onClick={() => { dashboard.openModal('44ac8a13-0bf7-4877-8d83-ef182188913f', { savePet }) }}
-                prefixIcon={<Add />}
-              >
-                Add Pet
-              </Button>
-            }
-          />
-          <Page.Content>
-            <Table<Pet>
-              columns={[
-                {
-                  title: 'Name',
-                  render: (pet) => pet.name,
-                },
-                {
-                  title: 'Age',
-                  render: (pet) => pet.age,
-                },
-                {
-                  title: 'Owner',
-                  render: (pet) => pet.owner,
-                },
-                {
-                  title: 'Featured',
-                  render: (pet) => pet.featured ? <Premium /> : null,
-                }
-              ]}
-              data={pets}
+      <Page>
+        <Page.Header
+          title="Dashboard Page"
+          subtitle="Add management capabilities to your app."
+          actionsBar={
+            <Button
+              onClick={() => {
+                dashboard.openModal('44ac8a13-0bf7-4877-8d83-ef182188913f')
+              }}
+              prefixIcon={<Icons.GetStarted />}
             >
-              {pets.length ? (
-                <Table.Content />
-              ) : (
-                <Table.EmptyState
-                  title="Add your first member"
-                  subtitle="Once you add members, you'll be able to see and manage them here."
-                />
-              )}
-            </Table>
-          </Page.Content>
-        </Page>
-      )}
+              Add a pet
+            </Button>
+          }
+        />
+        <Page.Content>
+          <EmptyState
+            image={
+              <Image fit="contain" height="100px" src={wixLogo} transparent />
+            }
+            title="Start editing this dashboard page"
+            subtitle="Learn how to work with dashboard pages and how to add functionality to them using Wix APIs."
+            theme="page"
+          >
+            <TextButton
+              as="a"
+              href="https://dev.wix.com/docs/build-apps/develop-your-app/frameworks/wix-cli/supported-extensions/dashboard-extensions/dashboard-pages/add-dashboard-page-extensions-with-the-cli#add-dashboard-page-extensions-with-the-cli"
+              target="_blank"
+              prefixIcon={<Icons.ExternalLink />}
+            >
+              Dashboard pages documentation
+            </TextButton>
+          </EmptyState>
+        </Page.Content>
+      </Page>
     </WixDesignSystemProvider>
   );
 };
