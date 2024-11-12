@@ -1,7 +1,5 @@
 import React, { useState, type FC } from 'react';
 import { dashboard } from '@wix/dashboard';
-import { width, height } from './modal.json';
-import type { Pet } from '../../../types';
 import {
   WixDesignSystemProvider,
   Box,
@@ -15,25 +13,15 @@ import {
   ToggleSwitch
 } from '@wix/design-system';
 import '@wix/design-system/styles.global.css';
-
-const defaultPet: Pet = {
-  name: "Buddy",
-  age: 3,
-  owner: "Alice Johnson",
-  gender: "Male",
-  type: "Dog",
-  activity: "Fetching",
-  description: "A friendly and energetic dog who loves to play fetch and explore the outdoors.",
-  image: '',
-  featured: false
-};
+import { width, height, title } from './modal.json';
+import type { Pet } from '../../../types';
 
 type Props = {
   savePet: (pet: Pet) => void;
 };
 
 const Modal: FC<Props> = ({ savePet }) => {
-  const [newPet, setNewPet] = useState<Pet>(defaultPet);
+  const [newPet, setNewPet] = useState<Partial<Pet>>();
 
   return (
     <WixDesignSystemProvider features={{ newColorsBranding: true }}>
@@ -62,43 +50,11 @@ const Modal: FC<Props> = ({ savePet }) => {
                     />
                   </FormField>
                 </Cell>
-                <Cell span={6}>
-                  <FormField label="Owner">
-                    <Input
-                      value={newPet.owner}
-                      onChange={(val) => setNewPet({ ...newPet, owner: val.target.value })}
-                    />
-                  </FormField>
-                </Cell>
-                <Cell span={6}>
-                  <FormField label="Type">
-                    <Input
-                      value={newPet.type}
-                      onChange={(val) => setNewPet({ ...newPet, type: val.target.value })}
-                    />
-                  </FormField>
-                </Cell>
-                <Cell span={6}>
-                  <FormField label="Activity">
-                    <Input
-                      value={newPet.activity}
-                      onChange={(val) => setNewPet({ ...newPet, activity: val.target.value })}
-                    />
-                  </FormField>
-                </Cell>
-                <Cell span={6}>
-                  <FormField label="Gender">
-                    <Input
-                      value={newPet.gender}
-                      onChange={(val) => setNewPet({ ...newPet, gender: val.target.value })}
-                    />
-                  </FormField>
-                </Cell>
                 <Cell span={4}>
                   <FormField label="Age">
                     <NumberInput
                       hideStepper
-                      value={newPet.age}
+                      value={newPet?.age}
                       min={0}
                       onChange={(val) => setNewPet({ ...newPet, age: val! })}
                     />
