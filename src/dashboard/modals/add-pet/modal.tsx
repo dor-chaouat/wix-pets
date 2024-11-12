@@ -32,7 +32,7 @@ const Modal: FC<Props> = ({ savePet }) => {
         secondaryButtonText="Cancel"
         primaryButtonOnClick={() => {
           dashboard.closeModal();
-          savePet(newPet);
+          savePet(newPet as Pet);
         }}
         secondaryButtonOnClick={() => dashboard.closeModal()}
         onCloseButtonClick={() => dashboard.closeModal()}
@@ -45,7 +45,7 @@ const Modal: FC<Props> = ({ savePet }) => {
                 <Cell span={6}>
                   <FormField label="Name">
                     <Input
-                      value={newPet.name}
+                      value={newPet?.name}
                       onChange={(val) => setNewPet({ ...newPet, name: val.target.value })}
                     />
                   </FormField>
@@ -64,7 +64,7 @@ const Modal: FC<Props> = ({ savePet }) => {
                   <Box height={'100%'}>
                     <FormField label="Featured">
                       <ToggleSwitch
-                        checked={newPet.featured}
+                        checked={newPet?.featured}
                         onChange={(val) => setNewPet({ ...newPet, featured: val.target.checked })}
                       />
                     </FormField>
@@ -73,7 +73,6 @@ const Modal: FC<Props> = ({ savePet }) => {
                 <Cell>
                   <FormField label="Description">
                     <InputArea
-                      value={newPet.description}
                       onChange={(val) => setNewPet({ ...newPet, description: val.target.value })}
                       placeholder="Describe your pet in a few sentences."
                       rows={2}
