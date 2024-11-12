@@ -22,7 +22,7 @@ const Index: FC = () => {
           actionsBar={
             <Button
               onClick={() => {
-                () => dashboard.openModal('44ac8a13-0bf7-4877-8d83-ef182188913f')
+                dashboard.openModal('44ac8a13-0bf7-4877-8d83-ef182188913f')
               }}
               prefixIcon={<Icons.GetStarted />}
             >
